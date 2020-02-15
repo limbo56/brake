@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import DraggableFlatList from 'react-native-draggable-flatlist'
-import Task from '../Task'
+import Task from '~/components/Task'
 import Header from './Header';
 
 const styles = StyleSheet.create({
