@@ -10,6 +10,11 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '90%'
     },
+    emptyContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });
 
 const TaskList = observer(() => {
@@ -23,7 +28,7 @@ const TaskList = observer(() => {
     renderContent = () => {
         switch (taskStore.status) {
             case "PENDING":
-                return <Text> Loading your daily tasks </Text>
+                return <Text>Loading your daily tasks...</Text>
             case "DONE":
                 return <List />
             case "ERROR":
@@ -34,7 +39,14 @@ const TaskList = observer(() => {
     return (
         <View style={styles.container}>
             <Header />
-            {renderContent()}
+            {taskStore.tasks.length === 0 ? (
+                <View style={styles.emptyContainer}>
+                    <Text style={{ textAlign: "center" }}>
+                        You don't have any tasks saved{"\n"}
+                        Click '+' to add a new one
+                    </Text>
+                </View>
+            ) : renderContent()}
         </View>
     )
 })
