@@ -30,7 +30,7 @@ const tabBarOptions = {
   labelStyle: styles.labelStyle,
   tabStyle: styles.tabStyle
 }
-const tabScreenOptions = {
+const tabScreenOptions = (route) => ({
   tabBarIcon: ({ color }) => (
     <MaterialIcons
       name={route.icon}
@@ -38,7 +38,7 @@ const tabScreenOptions = {
       color={color}
     />
   )
-}
+})
 
 const App = () => (
   <SafeAreaProvider>
@@ -52,7 +52,7 @@ const App = () => (
             key={route.name}
             name={route.name}
             component={route.component}
-            options={tabScreenOptions}
+            options={tabScreenOptions(route)}
           />
         ))}
       </Tab.Navigator>
