@@ -1,7 +1,7 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableWithoutFeedback } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { StyleSheet, Text, View } from 'react-native';
 import PropTypes from 'prop-types'
+import IconButton from "~/components/IconButton"
 
 const styles = StyleSheet.create({
     container: {
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         paddingBottom: 24,
         borderRadius: 6,
         marginTop: 8,
-        shadowColor: "#000",
+        shadowColor: "#000000",
         shadowOffset: {
             width: 0,
             height: 1,
@@ -35,25 +35,32 @@ const styles = StyleSheet.create({
     },
     name: {
         fontSize: 20,
-        color: '#FFF',
+        color: '#FFFFFF',
         fontWeight: '400'
     },
 })
 
-const Task = ({ name, completed, drag }) => {
+const Task = ({ name, completed, drag, deleteTask, edit }) => {
     return (
         <View style={[styles.container, completed ? styles.completed : styles.pending]}>
             <Text style={styles.name}>{name}</Text>
-            <TouchableWithoutFeedback
-                onLongPress={drag} 
-                delayLongPress={0}
-            >
-                <Ionicons
-                    name={"ios-menu"}
+            {edit ? (
+                <IconButton
+                    icon="delete"
+                    onPress={deleteTask}
                     size={32}
-                    color="white"
+                    color="#FFFFFF"
                 />
-            </TouchableWithoutFeedback>
+            ) : (
+                <IconButton
+                    icon="menu"
+                    onLongPress={drag}
+                    delayLongPress={0}
+                    animated={false}
+                    size={32}
+                    color="#FFFFFF"
+                />
+            )}
         </View>
     )
 }

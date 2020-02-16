@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
-import DraggableFlatList from 'react-native-draggable-flatlist'
-import Task from '~/components/Task'
-import Header from './Header';
+import React, { useEffect } from 'react'
+import { StyleSheet, View, Text, AsyncStorage } from 'react-native'
+import { taskStore } from '~/stores/TaskStore'
+import Header from './Header'
+import { observer } from 'mobx-react'
+import List from './List'
 
 const styles = StyleSheet.create({
     container: {
@@ -11,33 +12,31 @@ const styles = StyleSheet.create({
     },
 });
 
-function getTasks() {
-    return [
-        {
-            key: '1',
-            name: "Go to meeting",
-        },
-        {
-            key: '2',
-            name: "Read 30 Minutes",
-            completed: true
+const TaskList = observer(() => {
+    useEffect(() => {
+        async function performFetch() {
+            await taskStore.fetchTasks()
         }
-    ]
-}
+        performFetch()
+    }, [taskStore])
 
-const TaskList = () => {
-    const [data, setData] = useState(getTasks())
+    renderContent = () => {
+        switch (taskStore.status) {
+            case "PENDING":
+                return <Text> Loading your daily tasks </Text>
+            case "DONE":
+                return <List />
+            case "ERROR":
+                return <Text style={styles.error}>An error ocurred loading the tasks</Text>
+        }
+    }
+
     return (
         <View style={styles.container}>
             <Header />
-            <DraggableFlatList
-                data={data}
-                renderItem={({ item, drag }) => <Task drag={drag} {...item} />}
-                keyExtractor={(item, index) => `task-${item.name}-${index}`}
-                onDragEnd={({ data }) => setData(data)}
-            />
+            {renderContent()}
         </View>
     )
-}
+})
 
 export default TaskList
