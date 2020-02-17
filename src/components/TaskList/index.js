@@ -32,7 +32,7 @@ const TaskList = observer(() => {
             case "DONE":
                 return <List />
             case "ERROR":
-                return <Text style={styles.error}>An error ocurred loading the tasks</Text>
+                return <Text>An error ocurred loading the tasks</Text>
         }
     }
 

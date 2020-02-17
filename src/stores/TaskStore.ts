@@ -1,4 +1,4 @@
-import { observable, action, computed } from 'mobx'
+import { observable, action } from 'mobx'
 import { AsyncStorage } from 'react-native'
 
 enum FetchStatus {
@@ -72,17 +72,21 @@ class TaskStore {
         this.updateTasks()
     }
 
+    @action
+    toggleEdit() {
+        this.edit = !this.edit
+    }
+
+    containsTask(name) {
+        return this.tasks.some(task => task.name === name)
+    }
+
     private async updateTasks() {
         try {
             await AsyncStorage.setItem('tasks', JSON.stringify(this.tasks))
         } catch (error) {
             console.error(error.message)
         }
-    }
-
-    @action
-    toggleEdit() {
-        this.edit = !this.edit
     }
 }
 

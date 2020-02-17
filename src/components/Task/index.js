@@ -56,7 +56,7 @@ const Task = ({ name, completed, drag, deleteTask, edit }) => {
                     icon="menu"
                     onLongPress={drag}
                     delayLongPress={0}
-                    animated={false}
+                    activeOpacity={1}
                     size={32}
                     color="#FFFFFF"
                 />

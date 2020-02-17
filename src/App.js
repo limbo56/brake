@@ -1,6 +1,6 @@
 import React from 'react'
 import { registerRootComponent } from 'expo'
-import { StyleSheet, Platform } from 'react-native'
+import { StyleSheet, Platform, KeyboardAvoidingView } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -28,7 +28,8 @@ const tabBarOptions = {
   inactiveTintColor: "#5C5C5C",
   style: styles.barStyle,
   labelStyle: styles.labelStyle,
-  tabStyle: styles.tabStyle
+  tabStyle: styles.tabStyle,
+  keyboardHidesTabBar: true
 }
 const tabScreenOptions = (route) => ({
   tabBarIcon: ({ color }) => (

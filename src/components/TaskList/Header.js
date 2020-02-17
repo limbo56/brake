@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import { observer } from 'mobx-react';
 import { taskStore } from '../../stores/TaskStore';
 import IconButton from "~/components/IconButton"
+import CreateModal from './CreateModal';
 
 const styles = StyleSheet.create({
     header: {
@@ -25,23 +26,30 @@ const styles = StyleSheet.create({
     }
 });
 
-export default observer(() => (
-    <View style={styles.header}>
-        <Text style={styles.title}>Tasks</Text>
-        <View style={styles.actions}>
-            <IconButton
-                style={styles.iconButton}
-                icon="add"
-                onPress={() => taskStore.addTask("Test")}
-                size={32}
+export default observer(() => {
+    const [modalVisible, setModalVisible] = useState(false)
+    return (
+        <View style={styles.header}>
+            <CreateModal
+                visible={modalVisible}
+                setVisible={setModalVisible}
             />
-            <IconButton
-                style={styles.iconButton}
-                icon="edit"
-                active={taskStore.edit}
-                onPress={() => taskStore.toggleEdit()}
-                size={28}
-            />
+            <Text style={styles.title}>Tasks</Text>
+            <View style={styles.actions}>
+                <IconButton
+                    style={styles.iconButton}
+                    icon="add"
+                    onPress={() => setModalVisible(true)}
+                    size={32}
+                />
+                <IconButton
+                    style={styles.iconButton}
+                    icon="edit"
+                    active={taskStore.edit}
+                    onPress={() => taskStore.toggleEdit()}
+                    size={28}
+                />
+            </View>
         </View>
-    </View>
-))
+    )
+})
