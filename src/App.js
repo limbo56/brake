@@ -11,14 +11,12 @@ const iconSize = 28
 const styles = StyleSheet.create({
   barStyle: {
     backgroundColor: "#FFFFFF",
-    height: Platform.OS === "android" ? 60 : 100
   },
   labelStyle: {
     fontSize: 14,
   },
   tabStyle: {
-    paddingTop: 10,
-    paddingBottom: Platform.OS === "android" ? 5 : 0
+    paddingTop: 5,
   }
 })
 
